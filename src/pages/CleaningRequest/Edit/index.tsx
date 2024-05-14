@@ -28,8 +28,8 @@ export const Edit = ({
   washer_id,
   client_id,
 }: Props) => {
-  const { profile: wosher, isLoading } = useProfile({ id: washer_id });
-  const { profile: client, isLoading: loadingClient } = useProfile({
+  const { profile: wosher } = useProfile({ id: washer_id });
+  const { profile: client } = useProfile({
     id: client_id,
   });
 
