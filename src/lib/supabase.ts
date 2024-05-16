@@ -1,18 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createClient } from "@supabase/supabase-js";
 
-import {
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY,
-  //@ts-ignore
-} from "../../supabase.config.js"; // {../../../../supabase.config.local.js}
-
-const supabaseUrl = SUPABASE_URL;
-const supabaseAnonKey = SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_REACT_APP_SUPABASE_URL as string;
+const supabaseAnonKey = import.meta.env
+  .VITE_REACT_APP_SUPABASE_ANON_KEY as string;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    storage: localStorage as any,
+    storage: localStorage,
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
