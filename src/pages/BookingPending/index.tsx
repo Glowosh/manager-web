@@ -6,15 +6,15 @@ import { theme } from "../../theme";
 import { Edit } from "./Edit";
 import { useFilterCleaningRequest } from "../../hooks/useFilterCleaningRequest";
 
-export const CleaningRequest = () => {
-  const { cleaningRequests, isLoading } = useFilterCleaningRequest("completed");
+export const BookingPending = () => {
+  const { cleaningRequests, isLoading } = useFilterCleaningRequest("pending");
 
   const fromTo = cleaningRequests?.map((item) => ({
     washer_id: item?.washer_id,
     address: item?.address,
     scheduleHour: item?.schedule_hour,
     serviceDate: item?.service_date,
-    requestedAt: new Date(item?.created_at)?.toLocaleDateString("pt-BR"),
+    requestedAt: new Date(item?.created_at)?.toLocaleDateString("pt-br"),
     washStatus: item?.wash_status,
     modelCar: item?.model_car,
     totalPrice: item?.total_cost,

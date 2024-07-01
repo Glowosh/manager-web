@@ -1,18 +1,19 @@
-import { CleaningRequest } from '../pages/CleaningRequest';
-import { Dashboard } from '../pages/Dashboard';
-import { Home } from '../pages/Home';
-import { Login } from '../pages/Login';
-import { Users } from '../pages/Users';
-import { ValidateUser } from '../pages/ValidateUser';
+import { BookingPending } from "../pages/BookingPending";
+import { CleaningRequest } from "../pages/CleaningRequest";
+import { Dashboard } from "../pages/Dashboard";
+import { Home } from "../pages/Home";
+import { Login } from "../pages/Login";
+import { Users } from "../pages/Users";
+import { ValidateUser } from "../pages/ValidateUser";
 
 export const configRoutes = [
   {
-    path: '/',
+    path: "/",
     element: <Login />,
     isPrivate: false,
   },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: (
       <Dashboard>
         <Home />
@@ -22,7 +23,7 @@ export const configRoutes = [
   },
 
   {
-    path: '/dashboard/users',
+    path: "/dashboard/users",
     element: (
       <Dashboard>
         <Users />
@@ -31,7 +32,7 @@ export const configRoutes = [
     isPrivate: true,
   },
   {
-    path: '/dashboard/validate-user',
+    path: "/dashboard/validate-user",
     element: (
       <Dashboard>
         <ValidateUser />
@@ -40,10 +41,19 @@ export const configRoutes = [
     isPrivate: true,
   },
   {
-    path: '/dashboard/cleaning-request',
+    path: "/dashboard/cleaning-request",
     element: (
       <Dashboard>
         <CleaningRequest />
+      </Dashboard>
+    ),
+    isPrivate: true,
+  },
+  {
+    path: "/dashboard/booking-pending",
+    element: (
+      <Dashboard>
+        <BookingPending />
       </Dashboard>
     ),
     isPrivate: true,
