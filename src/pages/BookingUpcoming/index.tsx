@@ -6,8 +6,8 @@ import { theme } from "../../theme";
 import { Edit } from "./Edit";
 import { useFilterCleaningRequest } from "../../hooks/useFilterCleaningRequest";
 
-export const BookingPending = () => {
-  const { cleaningRequests, isLoading } = useFilterCleaningRequest("pending");
+export const BookingUpcoming = () => {
+  const { cleaningRequests, isLoading } = useFilterCleaningRequest("upcoming");
 
   const fromTo = cleaningRequests?.map((item) => ({
     washer_id: item?.washer_id,

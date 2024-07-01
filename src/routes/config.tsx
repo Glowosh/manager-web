@@ -1,4 +1,5 @@
 import { BookingPending } from "../pages/BookingPending";
+import { BookingUpcoming } from "../pages/BookingUpcoming";
 import { CleaningRequest } from "../pages/CleaningRequest";
 import { Dashboard } from "../pages/Dashboard";
 import { Home } from "../pages/Home";
@@ -41,19 +42,28 @@ export const configRoutes = [
     isPrivate: true,
   },
   {
-    path: "/dashboard/cleaning-request",
+    path: "/dashboard/booking-pending",
     element: (
       <Dashboard>
-        <CleaningRequest />
+        <BookingPending />
       </Dashboard>
     ),
     isPrivate: true,
   },
   {
-    path: "/dashboard/booking-pending",
+    path: "/dashboard/booking-upcoming",
     element: (
       <Dashboard>
-        <BookingPending />
+        <BookingUpcoming />
+      </Dashboard>
+    ),
+    isPrivate: true,
+  },
+  {
+    path: "/dashboard/cleaning-request",
+    element: (
+      <Dashboard>
+        <CleaningRequest />
       </Dashboard>
     ),
     isPrivate: true,

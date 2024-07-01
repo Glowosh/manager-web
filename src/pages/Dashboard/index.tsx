@@ -22,6 +22,7 @@ const listPages = [
   { name: "Users", path: "/dashboard/users" },
   { name: "Validate Wosher", path: "/dashboard/validate-user" },
   { name: "Booking Completed", path: "/dashboard/cleaning-request" },
+  { name: "Booking Upcoming", path: "/dashboard/booking-upcoming" },
   { name: "Booking Pending", path: "/dashboard/booking-pending" },
   { name: "Logout", path: "#" },
   // { name: 'Bookings', path: '#' },
