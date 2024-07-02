@@ -1,6 +1,6 @@
-import { CircularProgress, Stack, Typography } from '@mui/material';
-import { useUsersData } from '../../hooks/useUsersData';
-import { useWoshersData } from '../../hooks/useWoshersData';
+import { CircularProgress, Stack, Typography } from "@mui/material";
+import { useUsersData } from "../../hooks/useUsersData";
+import { useWoshersData } from "../../hooks/useWoshersData";
 
 export const Home = () => {
   const { profiles, isLoading } = useUsersData();

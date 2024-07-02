@@ -13,6 +13,7 @@ export interface IProfile {
   avatar_url: null | string;
   stripe_customer_id: null | string;
   status_register: null | string;
+  phone?: null | string;
 }
 
 export const useWoshersData = () => {

@@ -1,13 +1,15 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { Stack } from "@mui/material";
+import { Stack, useMediaQuery } from "@mui/material";
 import { showModal } from "../../components/ModalWrapping";
 import { FaEdit } from "react-icons/fa";
 import { theme } from "../../theme";
 import { Edit } from "./Edit";
 import { useFilterCleaningRequest } from "../../hooks/useFilterCleaningRequest";
+import { CardTypeBookings } from "../../components/CardTypeBookings";
 
 export const BookingPending = () => {
   const { cleaningRequests, isLoading } = useFilterCleaningRequest("pending");
+  const isSmallScreen = useMediaQuery("(max-width:1100px)");
 
   const fromTo = cleaningRequests?.map((item) => ({
     washer_id: item?.washer_id,
@@ -22,7 +24,9 @@ export const BookingPending = () => {
     client_id: item?.client_request_id,
   }));
 
-  return (
+  return isSmallScreen ? (
+    <CardTypeBookings data={fromTo} />
+  ) : (
     <DataGrid
       columns={[
         { field: "address", headerName: "Address", width: 200 },
