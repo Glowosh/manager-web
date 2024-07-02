@@ -1,13 +1,14 @@
-import { CircularProgress } from '@mui/material';
-import { useValidateWosher } from '../../hooks/useValidateWosher';
-import { Stack, Tab } from '@mui/material';
-import { TabsUi } from '../../components/TabsUi';
-import { ListPending } from './ListPending';
-import { ListApproved } from './ListApproved';
-import { ListRejected } from './ListRejected';
+import { CircularProgress } from "@mui/material";
+import { useValidateWosher } from "../../hooks/useValidateWosher";
+import { Stack, Tab } from "@mui/material";
+import { TabsUi } from "../../components/TabsUi";
+import { ListPending } from "./ListPending";
+import { ListApproved } from "./ListApproved";
+import { ListRejected } from "./ListRejected";
 
 export const ValidateUser = () => {
   const { isLoading } = useValidateWosher();
+
   return (
     <Stack>
       {isLoading ? (
@@ -19,17 +20,17 @@ export const ValidateUser = () => {
               {
                 tab: Tab,
                 resultTab: ListPending,
-                name: 'Pending',
+                name: "Pending",
               },
               {
                 tab: Tab,
                 resultTab: ListApproved,
-                name: 'Approved',
+                name: "Approved",
               },
               {
                 tab: Tab,
                 resultTab: ListRejected,
-                name: 'Rejected',
+                name: "Rejected",
               },
             ]}
           />
