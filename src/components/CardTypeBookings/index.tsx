@@ -20,7 +20,7 @@ export const CardTypeBookings = ({ data }: { data: any[] }) => {
         const { profile: client } = useProfile({ id: item.client_id });
 
         return (
-          <Card key={item.id} style={{ width: 300 }}>
+          <Card key={item.id} style={{ width: 280 }}>
             <CardContent>
               <Typography variant="body2" component="div" fontWeight="bold">
                 Address:{" "}

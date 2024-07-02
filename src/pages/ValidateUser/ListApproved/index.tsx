@@ -1,12 +1,12 @@
-import { CustomTabPanel } from '../../../components/CustomTabPanel';
-import { CircularProgress, Stack } from '@mui/material';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useValidateWosher } from '../../../hooks/useValidateWosher';
-import { EmptyScreen } from '../../../components/EmptyScreen/emptyScreen';
-import { showModal } from '../../../components/ModalWrapping';
-import { Validate } from '../Validate';
-import { RiInformationLine } from 'react-icons/ri';
-import { theme } from '../../../theme';
+import { CustomTabPanel } from "../../../components/CustomTabPanel";
+import { CircularProgress, Stack } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useValidateWosher } from "../../../hooks/useValidateWosher";
+import { EmptyScreen } from "../../../components/EmptyScreen/emptyScreen";
+import { showModal } from "../../../components/ModalWrapping";
+import { Validate } from "../Validate";
+import { RiInformationLine } from "react-icons/ri";
+import { theme } from "../../../theme";
 
 type Props = {
   index: number;
@@ -15,7 +15,7 @@ type Props = {
 
 export const ListApproved = ({ index, value }: Props) => {
   const { profiles, isLoading } = useValidateWosher({
-    status: 'approved',
+    status: "approved",
   });
 
   const fromTo = profiles?.map((item) => ({
@@ -37,16 +37,16 @@ export const ListApproved = ({ index, value }: Props) => {
           ) : (
             <DataGrid
               columns={[
-                { field: 'fullname', headerName: 'Full name', width: 300 },
+                { field: "fullname", headerName: "Full name", width: 300 },
                 {
-                  field: 'dateOfBirth',
-                  headerName: 'Date of birth',
+                  field: "dateOfBirth",
+                  headerName: "Date of birth",
                   width: 200,
                 },
-                { field: 'status', headerName: 'Status', width: 200 },
+                { field: "status", headerName: "Status", width: 200 },
                 {
-                  field: 'action',
-                  headerName: '',
+                  field: "action",
+                  headerName: "",
                   width: 50,
                   renderCell: ({ row }) => (
                     <Stack
