@@ -40,15 +40,8 @@ export const useFilterCleaningRequest = (filter: string) => {
       let query = supabase
         .from("cleaning_requests")
         .select("*")
-        .order("created_at", { ascending: false });
-
-      if (filter === "pending") {
-        query = query.eq("wash_status", "pending");
-      } else if (filter === "completed") {
-        query = query.eq("wash_status", "completed");
-      } else if (filter === "upcoming") {
-        query = query.eq("wash_status", "upcoming");
-      }
+        .order("created_at", { ascending: false })
+        .eq("wash_status", filter);
 
       const { data, error: err } = await query;
 
