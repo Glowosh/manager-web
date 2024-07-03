@@ -7,11 +7,12 @@ import {
   TableCell,
   TableHead,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { closeModal } from "../../../components/ModalWrapping";
 import { RiCloseFill } from "react-icons/ri";
-
 import { useProfile } from "../../../hooks/useProfile";
+import { theme } from "../../../theme";
 
 type Props = {
   serviceDate: string;
@@ -32,43 +33,64 @@ export const Edit = ({
   const { profile: client } = useProfile({
     id: client_id,
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Stack p={2} width={700} position="relative">
+    <Stack p={2} width={isMobile ? 280 : 700} position="relative">
       <RiCloseFill
         size={25}
         onClick={closeModal}
         cursor="pointer"
-        style={{ position: "absolute", top: 20, right: 20 }}
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+        }}
       />
 
       <Stack gap={0.5}>
-        <Stack direction="row" gap={0.5} alignItems="center">
-          <Typography fontWeight={700} fontSize={16}>
+        <Stack
+          direction={isMobile ? "column" : "row"}
+          gap={0.5}
+          alignItems="center"
+        >
+          <Typography fontWeight={isMobile ? 200 : 700} fontSize={16}>
             Wosher name:
           </Typography>
           <Typography fontSize={16} color="grey.100">
             {wosher?.first_name} {wosher?.last_name}
           </Typography>
         </Stack>
-        <Stack direction="row" gap={0.5} alignItems="center">
-          <Typography fontWeight={700} fontSize={16}>
+        <Stack
+          direction={isMobile ? "column" : "row"}
+          gap={0.5}
+          alignItems="center"
+        >
+          <Typography fontWeight={isMobile ? 200 : 700} fontSize={16}>
             Wosher e-mail:
           </Typography>
           <Typography fontSize={16} color="grey.100">
             {wosher?.email}
           </Typography>
         </Stack>
-        <Stack direction="row" gap={0.5} alignItems="center">
-          <Typography fontWeight={700} fontSize={16}>
+        <Stack
+          direction={isMobile ? "column" : "row"}
+          gap={0.5}
+          alignItems="center"
+        >
+          <Typography fontWeight={isMobile ? 200 : 700} fontSize={16}>
             Client name:
           </Typography>
           <Typography fontSize={16} color="grey.100">
             {client?.first_name} {client?.last_name}
           </Typography>
         </Stack>
-        <Stack direction="row" gap={0.5} alignItems="center">
-          <Typography fontWeight={700} fontSize={16}>
+        <Stack
+          direction={isMobile ? "column" : "row"}
+          gap={0.5}
+          alignItems="center"
+        >
+          <Typography fontWeight={isMobile ? 200 : 700} fontSize={16}>
             Client e-mail:
           </Typography>
           <Typography fontSize={16} color="grey.100">
@@ -97,7 +119,7 @@ export const Edit = ({
           sx={{
             width: "200px",
             textTransform: "capitalize",
-            alignSelf: "flex-end",
+            alignSelf: isMobile ? "center" : "flex-end",
             mr: 1,
           }}
         >

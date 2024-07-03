@@ -1,12 +1,13 @@
-import { CustomTabPanel } from '../../../components/CustomTabPanel';
-import { CircularProgress, Stack } from '@mui/material';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useValidateWosher } from '../../../hooks/useValidateWosher';
-import { EmptyScreen } from '../../../components/EmptyScreen/emptyScreen';
-import { showModal } from '../../../components/ModalWrapping';
-import { RiInformationLine } from 'react-icons/ri';
-import { theme } from '../../../theme';
-import { Validate } from '../Validate';
+import { CustomTabPanel } from "../../../components/CustomTabPanel";
+import { CircularProgress, Stack, useMediaQuery } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useValidateWosher } from "../../../hooks/useValidateWosher";
+import { EmptyScreen } from "../../../components/EmptyScreen/emptyScreen";
+import { showModal } from "../../../components/ModalWrapping";
+import { RiInformationLine } from "react-icons/ri";
+import { theme } from "../../../theme";
+import { Validate } from "../Validate";
+import { CardValidateUser } from "../../../components/CardValidateUser/CardValidateUser";
 
 type Props = {
   index: number;
@@ -14,9 +15,10 @@ type Props = {
 };
 
 export const ListRejected = ({ index, value }: Props) => {
-  const { profiles, isLoading } = useValidateWosher({
-    status: 'rejected',
+  const { profiles, isLoading, fetchProfiles } = useValidateWosher({
+    status: "rejected",
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const fromTo = profiles?.map((item) => ({
     rowId: item?.id,
@@ -35,39 +37,45 @@ export const ListRejected = ({ index, value }: Props) => {
           {profiles?.length === 0 ? (
             <EmptyScreen />
           ) : (
-            <DataGrid
-              columns={[
-                { field: 'fullname', headerName: 'Full name', width: 300 },
-                {
-                  field: 'dateOfBirth',
-                  headerName: 'Date of birth',
-                  width: 200,
-                },
-                { field: 'status', headerName: 'Status', width: 200 },
-                {
-                  field: 'action',
-                  headerName: '',
-                  width: 50,
-                  renderCell: ({ row }) => (
-                    <Stack
-                      alignItems="center"
-                      justifyContent="center"
-                      width="100%"
-                      height="100%"
-                      onClick={() => showModal(<Validate {...row} />)}
-                    >
-                      <RiInformationLine
-                        size={25}
-                        cursor="pointer"
-                        color={theme?.palette?.primary?.main}
-                      />
-                    </Stack>
-                  ),
-                },
-              ]}
-              rows={fromTo}
-              slots={{ toolbar: GridToolbar }}
-            />
+            <>
+              {isMobile ? (
+                <CardValidateUser data={fromTo} fetchProfiles={fetchProfiles} />
+              ) : (
+                <DataGrid
+                  columns={[
+                    { field: "fullname", headerName: "Full name", width: 300 },
+                    {
+                      field: "dateOfBirth",
+                      headerName: "Date of birth",
+                      width: 200,
+                    },
+                    { field: "status", headerName: "Status", width: 200 },
+                    {
+                      field: "action",
+                      headerName: "",
+                      width: 50,
+                      renderCell: ({ row }) => (
+                        <Stack
+                          alignItems="center"
+                          justifyContent="center"
+                          width="100%"
+                          height="100%"
+                          onClick={() => showModal(<Validate {...row} />)}
+                        >
+                          <RiInformationLine
+                            size={25}
+                            cursor="pointer"
+                            color={theme?.palette?.primary?.main}
+                          />
+                        </Stack>
+                      ),
+                    },
+                  ]}
+                  rows={fromTo}
+                  slots={{ toolbar: GridToolbar }}
+                />
+              )}
+            </>
           )}
         </>
       )}

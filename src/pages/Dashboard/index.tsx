@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import {
   Drawer,
   List,
@@ -6,10 +6,14 @@ import {
   ListItemButton,
   ListItemText,
   Stack,
-  Box,
+  IconButton,
+  useMediaQuery,
+  Toolbar,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
 import { clearStorage } from "../../utils/storage";
+import { theme } from "../../theme";
 
 const drawerWidth = 240;
 
@@ -25,79 +29,123 @@ const listPages = [
   { name: "Booking Upcoming", path: "/dashboard/booking-upcoming" },
   { name: "Booking Pending", path: "/dashboard/booking-pending" },
   { name: "Logout", path: "#" },
-  // { name: 'Bookings', path: '#' },
-  // { name: 'Work Zones', path: '#' },
-  // { name: 'Woshers Availability', path: '#' },
-  // { name: 'Revenue per Day', path: '#' },
-  // { name: 'Revenue per Month', path: '#' },
-  // { name: 'New Users this week', path: '#' },
-  // { name: 'New Users this month', path: '#' },
 ];
 
 export const Dashboard = ({ children }: Props) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+  };
 
   return (
-    <Stack direction="row" width="100%">
-      <Stack height="100vh" bgcolor="primary.light">
-        <Box sx={{ display: "flex" }}>
-          <Drawer
-            variant="permanent"
-            sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              [`& .MuiDrawer-paper`]: {
-                width: drawerWidth,
-                boxSizing: "border-box",
-                bgcolor: "primary.light",
-              },
-            }}
+    <Stack direction="column" sx={{ minHeight: "100vh" }}>
+      <Toolbar>
+        {isMobile && (
+          <IconButton
+            color="primary"
+            aria-label="open drawer"
+            edge="start"
+            onClick={toggleDrawer}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
-            <Stack my={2} mx={8}>
-              <img
-                src="/glowosh.png"
-                width={100}
-                height={100}
-                alt="Logo glowosh"
-              />
-            </Stack>
+            <MenuIcon />
+          </IconButton>
+        )}
+      </Toolbar>
+      <Stack direction="row" flexGrow={1}>
+        <Drawer
+          variant={isMobile ? "temporary" : "permanent"}
+          open={drawerOpen || !isMobile}
+          onClose={closeDrawer}
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: {
+              width: drawerWidth,
+              boxSizing: "border-box",
+              bgcolor: isMobile ? "primary.main" : "primary.light",
+            },
+            ...(isMobile && {
+              "& .MuiBackdrop-root": {
+                backgroundColor: "transparent",
+              },
+            }),
+            ...(isMobile && {
+              zIndex: 1200,
+            }),
+          }}
+        >
+          <Stack my={2} mx={8}>
+            <img
+              src="/glowosh.png"
+              width={100}
+              height={100}
+              alt="Logo glowosh"
+            />
+          </Stack>
 
-            <Stack sx={{ overflow: "auto" }}>
-              <List>
-                {listPages?.map((item) => (
-                  <ListItem
-                    key={item?.name}
-                    disablePadding
-                    sx={{
-                      bgcolor: pathname === item?.path ? "primary.main" : "",
+          <Stack sx={{ overflow: "auto" }}>
+            <List>
+              {listPages?.map((item) => (
+                <ListItem
+                  key={item?.name}
+                  disablePadding
+                  sx={{
+                    bgcolor:
+                      pathname === item?.path
+                        ? isMobile
+                          ? "white"
+                          : "primary.main"
+                        : "",
+                  }}
+                >
+                  <ListItemButton
+                    onClick={() => {
+                      if (item?.path === "#") {
+                        clearStorage();
+                        navigate("/");
+                        if (isMobile) {
+                          setDrawerOpen(false);
+                        }
+                        return;
+                      }
+                      navigate(item?.path);
+                      if (isMobile) {
+                        setDrawerOpen(false);
+                      }
                     }}
                   >
-                    <ListItemButton
-                      onClick={() => {
-                        if (item?.path === "#") {
-                          clearStorage();
-                          navigate("/");
-                          return;
-                        }
-                        navigate(item?.path);
+                    <ListItemText
+                      primary={item?.name}
+                      sx={{
+                        color:
+                          pathname === item?.path
+                            ? isMobile
+                              ? ""
+                              : "white"
+                            : "",
                       }}
-                    >
-                      <ListItemText
-                        primary={item?.name}
-                        sx={{
-                          color: pathname === item?.path ? "white" : "",
-                        }}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Stack>
-          </Drawer>
-        </Box>
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Stack>
+        </Drawer>
+
+        <Stack m={2} sx={{ flexGrow: 1 }}>
+          {children}
+        </Stack>
       </Stack>
-      <Stack m={2}>{children}</Stack>
     </Stack>
   );
 };
