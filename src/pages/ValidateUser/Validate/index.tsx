@@ -5,11 +5,13 @@ import {
   Skeleton,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { closeModal } from "../../../components/ModalWrapping";
 import { RiCloseFill } from "react-icons/ri";
 import { supabase } from "../../../lib/supabase";
 import { useValidationById } from "../../../hooks/useValidationById";
+import { theme } from "../../../theme";
 
 type Props = {
   fullname: string;
@@ -32,6 +34,7 @@ export const Validate = ({
   const { profiles, isLoading } = useValidationById({
     wosher_id: id as string,
   });
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const sendValidate = async (status: string) => {
     setLoading(status);
@@ -66,14 +69,14 @@ export const Validate = ({
         {fullname} - {dateOfBirth}
       </Typography>
 
-      <Stack gap={2} direction="row" mt={2}>
+      <Stack gap={2} direction={isMobile ? "column" : "row"} mt={2}>
         {isLoading ? (
           <>
             {Array.from({ length: 2 }).map((_, index) => (
               <Skeleton
                 variant="rectangular"
-                width={400}
-                height={400}
+                width={isMobile ? 200 : 400}
+                height={isMobile ? 200 : 400}
                 key={index}
               />
             ))}
@@ -82,21 +85,21 @@ export const Validate = ({
           <>
             <img
               src={profiles?.face_image}
-              width={400}
-              height={400}
+              width={isMobile ? 200 : 400}
+              height={isMobile ? 200 : 400}
               style={{ objectFit: "scale-down" }}
             />
             <img
               src={profiles?.doc_image}
-              width={400}
-              height={400}
+              width={isMobile ? 200 : 400}
+              height={isMobile ? 200 : 400}
               style={{ objectFit: "scale-down" }}
             />
           </>
         )}
       </Stack>
       {isValidateUser && (
-        <Stack direction="row" justifyContent="flex-end" gap={2} mt={2}>
+        <Stack direction="row" justifyContent="center" gap={2} mt={2}>
           <Button
             variant="contained"
             sx={{
@@ -119,7 +122,7 @@ export const Validate = ({
           </Button>
           <Button
             variant="contained"
-            sx={{ width: 150, height: 50, textTransform: "capitalize" }}
+            sx={{ width: 200, height: 50, textTransform: "capitalize" }}
             onClick={() => sendValidate("approved")}
             disabled={loadingReject || loadingApproved}
           >

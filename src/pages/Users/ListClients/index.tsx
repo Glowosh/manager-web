@@ -1,8 +1,9 @@
 import { CustomTabPanel } from "../../../components/CustomTabPanel";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Stack, useMediaQuery } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useUsersData } from "../../../hooks/useUsersData";
 import { EmptyScreen } from "../../../components/EmptyScreen/emptyScreen";
+import { CardTypeClients } from "../../../components/CardTypeClients/CardTypeClients";
 
 type Props = {
   index: number;
@@ -11,6 +12,7 @@ type Props = {
 
 export const ListClients = ({ index, value }: Props) => {
   const { profiles, isLoading } = useUsersData();
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const fromTo = profiles?.map((item) => ({
     id: item?.id,
@@ -27,6 +29,17 @@ export const ListClients = ({ index, value }: Props) => {
         <>
           {profiles?.length === 0 ? (
             <EmptyScreen />
+          ) : isMobile ? (
+            <Stack spacing={2}>
+              {fromTo.map((item) => (
+                <CardTypeClients
+                  key={item.id}
+                  fullname={item.fullname}
+                  email={item.email}
+                  role={item.role}
+                />
+              ))}
+            </Stack>
           ) : (
             <DataGrid
               columns={[

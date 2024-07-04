@@ -1,11 +1,13 @@
-import { Stack, Typography } from '@mui/material';
-import { FcDeleteDatabase } from 'react-icons/fc';
+import { Stack, Typography, useMediaQuery } from "@mui/material";
+import { FcDeleteDatabase } from "react-icons/fc";
+import { theme } from "../../theme";
 
 export const EmptyScreen = () => {
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <Stack
-      height="400px"
-      width="400px"
+      height={isMobile ? "200px" : "400px"}
+      width={isMobile ? "280px" : "400px"}
       borderRadius={1}
       mt={2}
       bgcolor="primary.light"
